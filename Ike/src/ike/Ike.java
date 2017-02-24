@@ -34,8 +34,7 @@ public class Ike {
         driver.findElement(By.id("btnLogin")).click();
         for (int i=0; i<1; i=0){
             Thread.sleep(3100);
-            driver.findElement(By.xpath("//div[2]/div[2]/table/tbody/tr/td")).click();
-            //#MensajeTimeOut > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(4) > td:nth-child(2) > button:nth-child(1)
+            driver.findElement(By.xpath("//div[2]/div[2]/table/tbody/tr/td")).click();            
         }
     }
 }
