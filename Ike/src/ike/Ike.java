@@ -11,12 +11,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  *
- * @author toscanox
+ * @author jesustoskno@gmail.com
  */
 public class Ike {
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void setProps(){
         System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
