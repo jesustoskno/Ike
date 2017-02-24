@@ -24,15 +24,7 @@ public class Ike {
         System.setProperty(elements.ChDrv, elements.ChDrvLoc);
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        setProps();
-        WebDriver driver = new ChromeDriver();
-        driver.get(elements.Url);
-        driver.findElement(elements.userForm).clear();
-        driver.findElement(elements.userForm).sendKeys(elements.user);
-        driver.findElement(elements.passForm).clear();
-        driver.findElement(elements.passForm).sendKeys(elements.pass);
-        driver.findElement(elements.loginBtn).click();
+    public static void magic(WebDriver driver) throws InterruptedException {
         for (int i = 0; i < 1; i = 0) {
             Thread.sleep(3100);
             if ((isElementPresent((elements.expBtnTxt), driver)) == true) {
@@ -53,6 +45,22 @@ public class Ike {
                 }
             }
         }
+    }
+
+    public static void login(WebDriver driver) {
+        driver.findElement(elements.userForm).clear();
+        driver.findElement(elements.userForm).sendKeys(elements.user);
+        driver.findElement(elements.passForm).clear();
+        driver.findElement(elements.passForm).sendKeys(elements.pass);
+        driver.findElement(elements.loginBtn).click();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        setProps();
+        WebDriver driver = new ChromeDriver();
+        driver.get(elements.Url);
+        login(driver);
+        magic(driver);
     }
 
     private static boolean isElementPresent(String xpathLocator, WebDriver driver) {
