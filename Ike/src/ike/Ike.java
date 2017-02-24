@@ -36,18 +36,20 @@ public class Ike {
         driver.findElement(By.id("btnLogin")).click();
         for (int i=0; i<1; i=0){
             Thread.sleep(3100);
-            if((isElementPresent(By.xpath("//*[@id=\"MensajeTimeOut\"]/table/tbody/tr/td/table/tbody/tr[4]/td[2]/button"), driver))==true){
+            if((isElementPresent(("//*[@id=\"MensajeTimeOut\"]/table"), driver))==true){
                 driver.findElement(By.xpath("//*[@id=\"MensajeTimeOut\"]/table/tbody/tr/td/table/tbody/tr[4]/td[2]/button")).click();
             } else {
-            driver.findElement(By.xpath("//div[2]/div[2]/table/tbody/tr/td")).click();
+                driver.findElement(By.xpath("//div[2]/div[2]/table/tbody/tr/td")).click();
             ////*[@id="MensajeTimeOut"]/table/tbody/tr/td/table/tbody/tr[4]/td[2]/button
+            ////*[@id="MensajeTimeOut"]/table/tbody/tr/td/table/tbody/tr[4]/td[2]/button
+            ////*[@id="MensajeTimeOut"]/table
             }
         }
     }
 
-    private static boolean isElementPresent(By xpathLocator, WebDriver driver) {
+    private static boolean isElementPresent(String xpathLocator, WebDriver driver) {
         try{
-            driver.findElement(By.xpath(xpathLocator.toString()));
+            driver.findElement(By.xpath(xpathLocator));
             return true;
         } catch (NoSuchElementException e) {
             return false;
