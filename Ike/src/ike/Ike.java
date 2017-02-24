@@ -16,9 +16,8 @@ import java.text.SimpleDateFormat;
  *
  * @author toscanox
  */
-
 public class Ike {
-    
+
     private static final SimpleDateFormat time = new SimpleDateFormat(elements.DtFrm);
 
     public static void setProps() {
@@ -37,10 +36,15 @@ public class Ike {
         for (int i = 0; i < 1; i = 0) {
             Thread.sleep(3100);
             if ((isElementPresent((elements.expBtnTxt), driver)) == true) {
-                driver.findElement(elements.newExpAlrt).click();
-                driver.findElement(elements.newExpBtn).click();
-                System.out.println(elements.newExpMsg1);
-                System.out.println(elements.newExpMsg2 + timeStamp());
+                driver.findElement(elements.expBtn).click();
+                if (isElementPresent(elements.newExpTxt, driver)) {
+                    driver.findElement(elements.newExpBtn).click();
+                    System.out.println(elements.newExpMsg1);
+                    System.out.println(elements.newExpMsg2 + timeStamp());
+                } else {
+                    System.out.println(elements.newExpMsg1);
+                    System.out.println(elements.newExpMsg2 + timeStamp());
+                }
             } else {
                 if ((isElementPresent(elements.tmOt, driver)) == true) {
                     driver.findElement(elements.tmOtBtn).click();
@@ -59,8 +63,8 @@ public class Ike {
             return false;
         }
     }
-    
-    public static String timeStamp (){
+
+    public static String timeStamp() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return time.format(timestamp);
     }
