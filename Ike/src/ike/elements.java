@@ -21,8 +21,8 @@ public class elements {
     public final static By loginBtn = new By.ById("btnLogin");
     public final static String expBtnTxt = "//*[@id=\"msg_alerta\"]/table/tbody/tr/td/table/tbody/tr[4]/td/button";
     public final static By expBtn = new By.ByXPath(expBtnTxt);
-    public final static By newExpAlrt = new By.ByXPath("//*[@id=\"msg_alerta\"]/table/tbody/tr/td/table/tbody/tr[4]/td/button");
-    public final static By newExpBtn = new By.ByXPath("//*[@id=\"PW_LST\"]/tbody/tr[3]/td[10]/button");
+    public final static String newExpTxt = "//*[@id=\"PW_LST\"]/tbody/tr[3]/td[10]/button";
+    public final static By newExpBtn = new By.ByXPath(newExpTxt);
     public final static String newExpMsg1 = "Has aceptado un nuevo expediente.";
     public final static String newExpMsg2 = "Fecha: ";
     public final static String tmOt = "//*[@id=\"MensajeTimeOut\"]/table";
