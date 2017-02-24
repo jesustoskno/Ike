@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package ike;
+import static junit.framework.Assert.assertTrue;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -34,7 +36,21 @@ public class Ike {
         driver.findElement(By.id("btnLogin")).click();
         for (int i=0; i<1; i=0){
             Thread.sleep(3100);
-            driver.findElement(By.xpath("//div[2]/div[2]/table/tbody/tr/td")).click();            
+            if((isElementPresent(By.xpath("//*[@id=\"MensajeTimeOut\"]/table/tbody/tr/td/table/tbody/tr[4]/td[2]/button"), driver))==true){
+                driver.findElement(By.xpath("//*[@id=\"MensajeTimeOut\"]/table/tbody/tr/td/table/tbody/tr[4]/td[2]/button")).click();
+            } else {
+            driver.findElement(By.xpath("//div[2]/div[2]/table/tbody/tr/td")).click();
+            ////*[@id="MensajeTimeOut"]/table/tbody/tr/td/table/tbody/tr[4]/td[2]/button
+            }
+        }
+    }
+
+    private static boolean isElementPresent(By xpathLocator, WebDriver driver) {
+        try{
+            driver.findElement(By.xpath(xpathLocator.toString()));
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
         }
     }
 }
