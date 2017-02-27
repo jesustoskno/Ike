@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import static junit.framework.Assert.assertEquals;
 
 /**
  *
@@ -26,11 +27,11 @@ public class Ike {
 
     public static void magic(WebDriver driver) throws InterruptedException {
         for (int i = 0; i < 1; i = 0) {
-            Thread.sleep(3100);
-            if ((isElementPresent((elements.expBtnTxt), driver)) == true) {
-                driver.findElement(elements.expBtn).click();
-                if (isElementPresent(elements.newExpTxt, driver)) {
-                    driver.findElement(elements.newExpBtn).click();
+            pause();
+            if(isElementPresent(elements.expBtnTxt, driver)){
+                click(elements.expBtn, driver);
+                if(isElementPresent(elements.newExpTxt, driver)){
+                    click(elements.newExpBtn, driver);
                     System.out.println(elements.newExpMsg1);
                     System.out.println(elements.newExpMsg2 + timeStamp());
                 } else {
@@ -38,10 +39,14 @@ public class Ike {
                     System.out.println(elements.newExpMsg2 + timeStamp());
                 }
             } else {
-                if ((isElementPresent(elements.tmOt, driver)) == true) {
-                    driver.findElement(elements.tmOtBtn).click();
+                if(isElementPresent(elements.tmOtBtnTxt, driver)){
+                    click(elements.tmOtBtn, driver);
                 } else {
-                    driver.findElement(elements.updtExp).click();
+                    if(isElementPresent(elements.updtExpTxt, driver)){
+                        pause();
+                        pause();
+                        click(elements.updtExp, driver);
+                    }
                 }
             }
         }
@@ -72,8 +77,44 @@ public class Ike {
         }
     }
 
+    private static void pause() throws InterruptedException {
+        Thread.sleep(1000);
+    }
+
+    private static void msg() {
+        WebDriver driver2 = new ChromeDriver();
+        driver2.get(elements.msg);
+        driver2.findElement(By.id("Email")).clear();
+        driver2.findElement(By.id("Email")).sendKeys("serviciosycerrajerias@gmail.com");
+        driver2.findElement(By.id("next")).click();
+        driver2.findElement(By.id("Passwd")).clear();
+        driver2.findElement(By.id("Passwd")).sendKeys("tomaservicios");
+        driver2.findElement(By.id("signIn")).click();
+        driver2.findElement(By.xpath("//div[@id=':3k']/div/div")).click();
+        driver2.findElement(By.id(":8i")).click();
+        driver2.findElement(By.id(":8i")).clear();
+        driver2.findElement(By.id(":8i")).sendKeys("Nuevo Expediente");
+        driver2.findElement(By.id(":88")).click();
+
+        //caso 2
+        
+        assertEquals("cerrajerías servicios", driver2.findElement(By.cssSelector("p.profile-name")).getText());
+        driver2.findElement(By.id("Passwd")).clear();
+        driver2.findElement(By.id("Passwd")).sendKeys("tomaservicios");
+        driver2.findElement(By.id("signIn")).click();
+
+    }
+
     public static String timeStamp() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return time.format(timestamp);
+    }
+    
+    public static void click(By element, WebDriver driver){
+        try{
+            driver.findElement(element).click();
+        } catch (NoSuchElementException e) {
+            
+        }
     }
 }
