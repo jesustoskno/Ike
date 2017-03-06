@@ -17,11 +17,13 @@ import java.text.SimpleDateFormat;
  * @author jesustoskno@gmail.com
  */
 public class Ike {
+
     private static final SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
     private static String mTimestamp = "";
 
     public static void setProps() {
-        System.setProperty(elements.ChDrv, elements.ChDrvLoc);
+        System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -59,22 +61,6 @@ public class Ike {
         }
     }
 
-    public static void login(WebDriver driver) {
-        driver.findElement(elements.userForm).clear();
-        driver.findElement(elements.userForm).sendKeys(elements.user);
-        driver.findElement(elements.passForm).clear();
-        driver.findElement(elements.passForm).sendKeys(elements.pass);
-        driver.findElement(elements.loginBtn).click();
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        setProps();
-        WebDriver driver = new ChromeDriver();
-        driver.get(elements.Url);
-        login(driver);
-        magic(driver);
-    }
-
     private static boolean isElementPresent(String xpathLocator, WebDriver driver) {
         try {
             driver.findElement(By.xpath(xpathLocator));
@@ -107,6 +93,7 @@ public class Ike {
         driver2.findElement(By.xpath("//td/div/div/div[4]/table/tbody/tr/td/div/div[2]")).click();
         driver2.quit();
     }
+
     public static String timeStamp() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         mTimestamp = time.format(timestamp);
