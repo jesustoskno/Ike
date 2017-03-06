@@ -8,7 +8,7 @@ package ike;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
@@ -17,32 +17,44 @@ import java.text.SimpleDateFormat;
  * @author jesustoskno@gmail.com
  */
 public class Ike {
-
-    private static final SimpleDateFormat time = new SimpleDateFormat(elements.DtFrm);
+    private static final SimpleDateFormat time = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
+    private static String mTimestamp = "";
 
     public static void setProps() {
         System.setProperty(elements.ChDrv, elements.ChDrvLoc);
     }
 
-    public static void magic(WebDriver driver) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
+        setProps();
+        WebDriver driver = new FirefoxDriver();
+        driver.get("https://sise2mx.ikeasistencia.com/");
+        driver.findElement(By.id("Usr")).clear();
+        driver.findElement(By.id("Usr")).sendKeys("cmantenimiento");
+        driver.findElement(By.id("Pass")).clear();
+        driver.findElement(By.id("Pass")).sendKeys("032017jR");
+        driver.findElement(By.id("btnLogin")).click();
+        msg();
         for (int i = 0; i < 1; i = 0) {
             Thread.sleep(3100);
-            if ((isElementPresent((elements.expBtnTxt), driver)) == true) {
-                driver.findElement(elements.expBtn).click();
-                if (isElementPresent(elements.newExpTxt, driver)) {
-                    driver.findElement(elements.newExpBtn).click();
-                    System.out.println(elements.newExpMsg1);
-                    System.out.println(elements.newExpMsg2 + timeStamp());
-                } else {
-                    System.out.println(elements.newExpMsg1);
-                    System.out.println(elements.newExpMsg2 + timeStamp());
+            if ((isElementPresent(("//*[@id=\"PW_LST\"]/tbody/tr[3]/td[10]/button"), driver)) == true) {
+                driver.findElement(By.xpath("//*[@id=\"PW_LST\"]/tbody/tr[3]/td[10]/button")).click();
+                System.out.println("Has aceptado un nuevo expediente.");
+                System.out.println("Fecha: " + timeStamp());
+                msg();
+            }
+            if ((isElementPresent(("//*[@id=\"msg_alerta\"]/table/tbody/tr/td/table/tbody/tr[4]/td/button"), driver)) == true) {
+                driver.findElement(By.xpath("//*[@id=\"msg_alerta\"]/table/tbody/tr/td/table/tbody/tr[4]/td/button")).click();
+                if ((isElementPresent(("//*[@id=\"PW_LST\"]/tbody/tr[3]/td[10]/button"), driver)) == true) {
+                    driver.findElement(By.xpath("//*[@id=\"PW_LST\"]/tbody/tr[3]/td[10]/button")).click();
                 }
+                System.out.println("Has aceptado un nuevo expediente.");
+                System.out.println("Fecha: " + timeStamp());
+                msg();
+            }
+            if ((isElementPresent(("//*[@id=\"MensajeTimeOut\"]/table"), driver)) == true) {
+                driver.findElement(By.xpath("//*[@id=\"MensajeTimeOut\"]/table/tbody/tr/td/table/tbody/tr[4]/td[2]/button")).click();
             } else {
-                if ((isElementPresent(elements.tmOt, driver)) == true) {
-                    driver.findElement(elements.tmOtBtn).click();
-                } else {
-                    driver.findElement(elements.updtExp).click();
-                }
+                driver.findElement(By.xpath("//div[2]/div[2]/table/tbody/tr/td")).click();
             }
         }
     }
@@ -72,8 +84,32 @@ public class Ike {
         }
     }
 
+    public static void msg() throws InterruptedException {
+        WebDriver driver2 = new FirefoxDriver();
+        
+        driver2.get("https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1#identifier");
+        driver2.findElement(By.id("Email")).clear();
+        driver2.findElement(By.id("Email")).sendKeys("serviciosycerrajerias@gmail.com");
+        driver2.findElement(By.id("next")).click();
+        Thread.sleep(2000);
+        driver2.findElement(By.id("Passwd")).clear();
+        driver2.findElement(By.id("Passwd")).sendKeys("tomaservicios");
+        driver2.findElement(By.id("signIn")).click();
+        Thread.sleep(13000);
+        driver2.findElement(By.className("z0")).click();
+        Thread.sleep(2000);
+        driver2.findElement(By.name("to")).click();
+        driver2.findElement(By.name("to")).clear();
+        driver2.findElement(By.name("to")).sendKeys("serviciosycerrajerias@gmail.com");
+        driver2.findElement(By.name("subjectbox")).click();
+        driver2.findElement(By.name("subjectbox")).clear();
+        driver2.findElement(By.name("subjectbox")).sendKeys("Nuevo expediente: " + mTimestamp);
+        driver2.findElement(By.xpath("//td/div/div/div[4]/table/tbody/tr/td/div/div[2]")).click();
+        driver2.quit();
+    }
     public static String timeStamp() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        return time.format(timestamp);
+        mTimestamp = time.format(timestamp);
+        return mTimestamp;
     }
 }
