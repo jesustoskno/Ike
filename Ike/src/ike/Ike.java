@@ -35,7 +35,6 @@ public class Ike {
         driver.findElement(By.id("Pass")).clear();
         driver.findElement(By.id("Pass")).sendKeys("032017jR");
         driver.findElement(By.id("btnLogin")).click();
-        msg();
         for (int i = 0; i < 1; i = 0) {
             Thread.sleep(3100);
             if ((isElementPresent(("//*[@id=\"PW_LST\"]/tbody/tr[3]/td[10]/button"), driver)) == true) {
