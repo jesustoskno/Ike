@@ -26,7 +26,7 @@ public class Ike {
     private static String mTimestamp = "";
 
     public static void setProps() {
-        System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
     }
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException, IOException {
