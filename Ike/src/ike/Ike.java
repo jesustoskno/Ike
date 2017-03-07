@@ -30,21 +30,13 @@ public class Ike {
     }
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException, IOException {
-        String passFile = "pass.txt";
-        String line = null;
-        String password = new String();
-        FileReader fileReader = new FileReader(passFile);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        while((line = bufferedReader.readLine()) != null){
-            password = line;
-        }
         setProps();
         WebDriver driver = new FirefoxDriver();
         driver.get("https://sise2mx.ikeasistencia.com/");
         driver.findElement(By.id("Usr")).clear();
         driver.findElement(By.id("Usr")).sendKeys("cmantenimiento");
         driver.findElement(By.id("Pass")).clear();
-        driver.findElement(By.id("Pass")).sendKeys(password);
+        driver.findElement(By.id("Pass")).sendKeys(readPass());
         driver.findElement(By.id("btnLogin")).click();
         for (int i = 0; i < 1; i = 0) {
             Thread.sleep(3100);
@@ -78,6 +70,18 @@ public class Ike {
         } catch (NoSuchElementException e) {
             return false;
         }
+    }
+    
+    private static String readPass() throws FileNotFoundException, IOException{
+        String passFile = "pass.txt";
+        String line = null;
+        String password = new String();
+        FileReader fileReader = new FileReader(passFile);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        while((line = bufferedReader.readLine()) != null){
+            password = line;
+        }
+        return password;
     }
 
     public static void msg() throws InterruptedException {
