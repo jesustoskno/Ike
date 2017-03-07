@@ -5,6 +5,10 @@
  */
 package ike;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -23,17 +27,24 @@ public class Ike {
 
     public static void setProps() {
         System.setProperty("webdriver.gecko.driver", "C:\\geckodriver.exe");
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, FileNotFoundException, IOException {
+        String passFile = "pass.txt";
+        String line = null;
+        String password = new String();
+        FileReader fileReader = new FileReader(passFile);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        while((line = bufferedReader.readLine()) != null){
+            password = line;
+        }
         setProps();
         WebDriver driver = new FirefoxDriver();
         driver.get("https://sise2mx.ikeasistencia.com/");
         driver.findElement(By.id("Usr")).clear();
         driver.findElement(By.id("Usr")).sendKeys("cmantenimiento");
         driver.findElement(By.id("Pass")).clear();
-        driver.findElement(By.id("Pass")).sendKeys("032017jR");
+        driver.findElement(By.id("Pass")).sendKeys(password);
         driver.findElement(By.id("btnLogin")).click();
         for (int i = 0; i < 1; i = 0) {
             Thread.sleep(3100);
