@@ -15,6 +15,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import org.openqa.selenium.Proxy;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  *
@@ -31,7 +35,13 @@ public class Ike {
 
     public static void main(String[] args) throws InterruptedException, FileNotFoundException, IOException {
         setProps();
-        WebDriver driver = new FirefoxDriver();
+        FirefoxOptions options = new FirefoxOptions()
+    .setProfile(new FirefoxProfile());
+        Proxy proxy = new Proxy();
+        proxy.setProxyType(Proxy.ProxyType.AUTODETECT);
+        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+		capabilities.setCapability("proxy", proxy);
+        WebDriver driver = new FirefoxDriver(capabilities);
         driver.get("https://sise2mx.ikeasistencia.com/");
         driver.findElement(By.id("Usr")).clear();
         driver.findElement(By.id("Usr")).sendKeys("cmantenimiento");
