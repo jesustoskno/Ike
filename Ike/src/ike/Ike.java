@@ -40,7 +40,7 @@ public class Ike {
         Proxy proxy = new Proxy();
         proxy.setProxyType(Proxy.ProxyType.AUTODETECT);
         DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-		capabilities.setCapability("proxy", proxy);
+	capabilities.setCapability("proxy", proxy);
         WebDriver driver = new FirefoxDriver(capabilities);
         driver.get("https://sise2mx.ikeasistencia.com/");
         driver.findElement(By.id("Usr")).clear();
@@ -54,7 +54,7 @@ public class Ike {
                 driver.findElement(By.xpath("//*[@id=\"PW_LST\"]/tbody/tr[3]/td[10]/button")).click();
                 System.out.println("Has aceptado un nuevo expediente.");
                 System.out.println("Fecha: " + timeStamp());
-                msg();
+                //msg();
             }
             if ((isElementPresent(("//*[@id=\"msg_alerta\"]/table/tbody/tr/td/table/tbody/tr[4]/td/button"), driver)) == true) {
                 driver.findElement(By.xpath("//*[@id=\"msg_alerta\"]/table/tbody/tr/td/table/tbody/tr[4]/td/button")).click();
@@ -63,7 +63,7 @@ public class Ike {
                 }
                 System.out.println("Has aceptado un nuevo expediente.");
                 System.out.println("Fecha: " + timeStamp());
-                msg();
+                //msg();
             }
             if ((isElementPresent(("//*[@id=\"MensajeTimeOut\"]/table"), driver)) == true) {
                 driver.findElement(By.xpath("//*[@id=\"MensajeTimeOut\"]/table/tbody/tr/td/table/tbody/tr[4]/td[2]/button")).click();
